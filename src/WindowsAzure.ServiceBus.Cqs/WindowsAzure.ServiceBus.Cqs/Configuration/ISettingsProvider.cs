@@ -12,7 +12,7 @@ namespace WindowsAzure.ServiceBus.Cqs.Configuration
         /// </summary>
         /// <param name="name">Name of the configuration setting</param>
         /// <returns>Name</returns>
-        /// <exception cref="ConfigurationException">The specified setting was not found.</exception>
+        /// <exception cref="ConfigurationErrorsException">The specified setting was not found.</exception>
         string GetAppSetting(string name);
     }
 }

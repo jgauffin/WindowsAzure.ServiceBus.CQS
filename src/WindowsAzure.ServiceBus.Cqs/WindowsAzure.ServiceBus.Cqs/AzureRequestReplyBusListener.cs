@@ -52,7 +52,7 @@ namespace WindowsAzure.ServiceBus.Cqs
             _queryQueueClient = QueueClient.CreateFromConnectionString(requestQueueConnectionString, requestQueueName);
             _requestHandlerMethod = GetType().GetMethod("InvokeHandler", BindingFlags.NonPublic | BindingFlags.Instance);
 
-            SuccessTask = null;
+            SuccessTask = childContainer => { };
         }
 
         public void Start()
@@ -94,10 +94,18 @@ namespace WindowsAzure.ServiceBus.Cqs
             try
             {
                 msg = _queryQueueClient.EndReceive(ar);
+                if (msg == null)
+                {
+                    _logger.Write(LogLevel.Debug, "Received null message (i.e. the Azure ServiceBus library completed the async op without receiving a message)");
+                    ReceiveMessage();
+                    return;
+                }
+
             }
             catch (Exception exception)
             {
                 BusFailed(this, new ExceptionEventArgs(exception));
+                ReceiveMessage();
                 return;
             }
 
@@ -160,11 +168,12 @@ namespace WindowsAzure.ServiceBus.Cqs
                 }
 
                 var genMethod = _serializerMethod.MakeGenericMethod(type);
-                var query = genMethod.Invoke(Serializer.Serializer.Instance, new object[] { msg });
+                var request = genMethod.Invoke(Serializer.Serializer.Instance, new object[] { msg });
 
+                _logger.Write(LogLevel.Debug, "Received request: " + DebugSerializer.Serialize(request));
 
                 var method = _requestHandlerMethod.MakeGenericMethod(type, type.BaseType.GenericTypeArguments[0]);
-                var reply = method.Invoke(this, new object[] { query });
+                var reply = method.Invoke(this, new object[] { request });
                 SendReply(msg.ReplyToSessionId, requestId, reply);
             }
             catch (Exception exception)
@@ -223,7 +232,15 @@ namespace WindowsAzure.ServiceBus.Cqs
                 resultTask = handlers[0].ExecuteAsync(query);
                 resultTask.Wait();
 
-                SuccessTask(scope);
+                try
+                {
+
+                    SuccessTask(scope);
+                }
+                catch (System.Exception ex)
+                {
+                    throw;
+                }
             }
 
             return resultTask.Result;
@@ -232,6 +249,7 @@ namespace WindowsAzure.ServiceBus.Cqs
         protected void SendReply(string sessionId, Guid requestId, object reply)
         {
             var msg = Serializer.Serializer.Instance.Serialize(reply);
+            _logger.Write(LogLevel.Info, "Request " + requestId + ", Session " + sessionId + ", Reply: " + DebugSerializer.Serialize(reply));
             msg.ReplyTo = requestId.ToString();
             msg.SessionId = sessionId;
             msg.Properties[MessageProperties.PayloadTypeName] = reply.GetType().AssemblyQualifiedName;

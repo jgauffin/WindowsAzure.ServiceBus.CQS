@@ -37,7 +37,7 @@ namespace WindowsAzure.ServiceBus.Cqs
             _genericMethod = GetType()
                 .GetMethod("Execute", BindingFlags.NonPublic | BindingFlags.Instance, null,
                     new[] {typeof (BrokeredMessage)}, null);
-            SuccessTask = null;
+            SuccessTask = childContainer => { };
         }
 
         /// <summary>
@@ -94,7 +94,7 @@ namespace WindowsAzure.ServiceBus.Cqs
                 brokeredMessage = _queueClient.EndReceive(ar);
                 if (brokeredMessage == null)
                 {
-                    _logger.Write(LogLevel.Info, "Received null message");
+                    _logger.Write(LogLevel.Debug, "Received null message (i.e. the Azure ServiceBus library completed the async op without receiving a message)");
                     ReceiveMessage();
                     return;
                 }

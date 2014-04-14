@@ -17,7 +17,7 @@ namespace WindowsAzure.ServiceBus.Cqs.Configuration
         /// <exception cref="System.Configuration.ConfigurationErrorsException"></exception>
         public string GetAppSetting(string name)
         {
-            var value = ConfigurationManager.AppSettings["name"];
+            var value = ConfigurationManager.AppSettings[name];
             if (value == null)
                 throw new ConfigurationErrorsException(name + " was not found in config.");
 

@@ -104,6 +104,7 @@ namespace WindowsAzure.ServiceBus.Cqs
             catch (Exception exception)
             {
                 BusFailed(this, new ExceptionEventArgs(exception));
+                ReceiveMessage();
                 return;
             }
 
@@ -185,6 +186,7 @@ namespace WindowsAzure.ServiceBus.Cqs
         private void Reply(string sessionId, Guid queryId, object reply)
         {
             var msg = Serializer.Serializer.Instance.Serialize(reply);
+            _logger.Write(LogLevel.Info, "Sending reply to query " + queryId + " on session " + sessionId + ": " + msg);
             msg.ReplyTo = queryId.ToString();
             msg.SessionId = sessionId;
             msg.Properties[MessageProperties.PayloadTypeName] = reply.GetType().AssemblyQualifiedName;

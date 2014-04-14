@@ -28,6 +28,7 @@
     <DefineConstants>TRACE</DefineConstants>
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
+    <DocumentationFile>bin\Release\WindowsAzure.ServiceBus.Cqs.XML</DocumentationFile>
   </PropertyGroup>
   <ItemGroup>
     <Reference Include="Microsoft.ServiceBus, Version=2.2.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
@@ -64,6 +65,7 @@
     <Compile Include="Configuration\AppConfigProvider.cs" />
     <Compile Include="Configuration\CloudConfigProvider.cs" />
     <Compile Include="Configuration\ISettingsProvider.cs" />
+    <Compile Include="DebugSerializer.cs" />
     <Compile Include="ExceptionEventArgs.cs" />
     <Compile Include="FatalBusException.cs" />
     <Compile Include="InversionOfControl\IChildContainer.cs" />

@@ -1,0 +1,32 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio 2012
+Project("{CC5FD16D-436D-48AD-A40C-5A424C6E3E79}") = "SampleProject", "SampleProject\SampleProject.ccproj", "{15444081-8522-4A57-A4A8-2CA737579151}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MvcWebRole1", "MvcWebRole1\MvcWebRole1.csproj", "{3448B7F2-7D9B-4E17-B36A-007B3239F472}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "WorkerRoleWithSBQueue1", "WorkerRoleWithSBQueue1\WorkerRoleWithSBQueue1.csproj", "{B622F919-C7A3-45B4-9DF8-8E4C60B224B3}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{15444081-8522-4A57-A4A8-2CA737579151}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{15444081-8522-4A57-A4A8-2CA737579151}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{15444081-8522-4A57-A4A8-2CA737579151}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{15444081-8522-4A57-A4A8-2CA737579151}.Release|Any CPU.Build.0 = Release|Any CPU
+		{3448B7F2-7D9B-4E17-B36A-007B3239F472}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{3448B7F2-7D9B-4E17-B36A-007B3239F472}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{3448B7F2-7D9B-4E17-B36A-007B3239F472}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{3448B7F2-7D9B-4E17-B36A-007B3239F472}.Release|Any CPU.Build.0 = Release|Any CPU
+		{B622F919-C7A3-45B4-9DF8-8E4C60B224B3}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{B622F919-C7A3-45B4-9DF8-8E4C60B224B3}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{B622F919-C7A3-45B4-9DF8-8E4C60B224B3}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{B622F919-C7A3-45B4-9DF8-8E4C60B224B3}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+EndGlobal

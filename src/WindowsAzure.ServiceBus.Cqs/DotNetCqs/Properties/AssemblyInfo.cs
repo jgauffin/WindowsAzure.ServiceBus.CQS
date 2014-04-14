@@ -6,11 +6,11 @@ using System.Runtime.InteropServices;
 // set of attributes. Change these attribute values to modify the information
 // associated with an assembly.
 [assembly: AssemblyTitle("DotNetCqs")]
-[assembly: AssemblyDescription("")]
+[assembly: AssemblyDescription("Command/Query seperation abstraction library for .NET.")]
 [assembly: AssemblyConfiguration("")]
-[assembly: AssemblyCompany("")]
+[assembly: AssemblyCompany("Gauffin Interactive AB")]
 [assembly: AssemblyProduct("DotNetCqs")]
-[assembly: AssemblyCopyright("Copyright ©  2014")]
+[assembly: AssemblyCopyright("Copyright ©  2014 Gauffin Interactive AB")]
 [assembly: AssemblyTrademark("")]
 [assembly: AssemblyCulture("")]
 

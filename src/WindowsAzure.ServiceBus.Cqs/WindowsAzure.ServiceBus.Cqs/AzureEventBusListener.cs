@@ -38,7 +38,7 @@ namespace WindowsAzure.ServiceBus.Cqs
                 .GetMethod("Execute", BindingFlags.NonPublic | BindingFlags.Instance, null,
                     new[] {typeof (BrokeredMessage)}, null);
 
-            SuccessTask = null;
+            SuccessTask = childContainer => { };
         }
 
         /// <summary>
@@ -156,6 +156,7 @@ namespace WindowsAzure.ServiceBus.Cqs
                 _logger.Write(LogLevel.Error, "Failed to start BeginReceive again.", exception);
                 var e = new BusMessageErrorEventArgs(brokeredMessage, new FatalBusException(exception));
                 BusFailed(this, e);
+
             }
         }
 
@@ -201,6 +202,9 @@ namespace WindowsAzure.ServiceBus.Cqs
         private async Task Execute<T>(BrokeredMessage msg) where T : ApplicationEvent
         {
             var appEvent = Serializer.Serializer.Instance.Deserialize<T>(msg);
+            _logger.Write(LogLevel.Debug, "Received event: " + DebugSerializer.Serialize(appEvent));
+
+
             using (var scope = _container.CreateChildContainer())
             {
                 var handlers = (

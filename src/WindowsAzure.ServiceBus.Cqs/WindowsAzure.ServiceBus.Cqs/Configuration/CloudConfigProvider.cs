@@ -15,11 +15,12 @@ namespace WindowsAzure.ServiceBus.Cqs.Configuration
         /// <returns>
         /// Name
         /// </returns>
+        /// <exception cref="System.Configuration.ConfigurationErrorsException"></exception>
         public string GetAppSetting(string name)
         {
             var value= CloudConfigurationManager.GetSetting(name);
             if (value == null)
-                throw new ConfigurationException(name + " as not found in config.");
+                throw new ConfigurationErrorsException(name + " as not found in config.");
 
             return value;
         }
